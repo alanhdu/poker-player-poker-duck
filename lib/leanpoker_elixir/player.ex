@@ -30,12 +30,13 @@ defmodule LeanpokerElixir.Player do
 
   def add_noise(bet) do
     :random.seed :os.timestamp
-    bet * (0.9 + 0.2 * :random.uniform)
+    bet * (0.95 + 0.1 * :random.uniform)
   end
 
   def clip(bet, us, min_bet) do
     bet = cond do
       bet <= 0            -> 0
+      bet <= min_bet - 50 -> 0
       true                -> Enum.min([us["stack"], Enum.max([min_bet, bet])])
     end
     round(bet)
