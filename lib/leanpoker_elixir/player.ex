@@ -11,9 +11,11 @@ defmodule LeanpokerElixir.Player do
     [c1, c2] = us["hole_cards"]
     cards = [c1, c2] ++ game_state["community_cards"]
 
-    bet = cond do
-      c1["rank"] == c2["rank"]   -> us["stack"] / 2
+    ranks = Enum.map cards, &(&1["rank"])
+    multi = (length (Enum.uniq ranks)) != (length ranks)
 
+    bet = cond do
+      multi                      -> us["stack"] / 2
       min_bet < us["stack"] / 10 -> min_bet         # small bet
       true                       -> 0
     end
