@@ -8,11 +8,11 @@ defmodule LeanpokerElixir.Player do
          |> elem(game_state["in_action"])
     min_bet = game_state["current_buy_in"] - us["bet"]
 
+    {c1, c2} = us["hole_cards"] |> List.to_tuple
 
-    if game_state["round"] < 2 do
-      0
-    else
-      us["stack"]
+    cond do
+      c1["rank"] == c2["rank"] -> us["stack"]
+      true                     -> 0
     end
   end
 
