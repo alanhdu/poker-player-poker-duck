@@ -10,10 +10,10 @@ defmodule LeanpokerElixir.Player do
     {c1, c2} = us["hole_cards"] |> List.to_tuple
 
     half_chips = round(us["stack"] / 2)
-    tenth_chips = round(us["stack"] / 10)
+    tenth_chips = round(us["stack"] / 100)
     cond do
       min_bet < tenth_chips    -> min_bet
-      c1["rank"] == c2["rank"] -> Enum.random 1..half_chips
+      c1["rank"] == c2["rank"] -> half_chips + Enum.random 1..half_chips
       true                     -> 0
     end
   end
