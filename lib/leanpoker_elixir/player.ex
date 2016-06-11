@@ -6,7 +6,13 @@ defmodule LeanpokerElixir.Player do
     us = game_state["players"]
          |> List.to_tuple
          |> elem(game_state["in_action"])
-    us["stack"]
+    min_bet = game_state["current_buy_in"] - us["bet"]
+
+    if length(game_state["community_cards"]) < 4 do
+      min_bet
+    else
+      us["stack"]
+    end
   end
 
   def showdown(game_state) do
