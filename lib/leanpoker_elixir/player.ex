@@ -9,8 +9,9 @@ defmodule LeanpokerElixir.Player do
 
     {c1, c2} = us["hole_cards"] |> List.to_tuple
 
+    max_bet = round(us["stack"] / 2)
     cond do
-      c1["rank"] == c2["rank"] -> Enum.random 1..us["stack"]
+      c1["rank"] == c2["rank"] -> Enum.random 1..max_bet
       true                     -> 0
     end
   end
